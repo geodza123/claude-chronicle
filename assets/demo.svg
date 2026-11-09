@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+<rect width="1280" height="640" fill="#10151f"/>
+<text x="58" y="66" font-family="sans-serif" font-size="36" fill="#ffffff">claude-chronicle</text>
+<text x="58" y="105" font-family="sans-serif" font-size="22" fill="#b1bbc9">Все сессии Claude Code — в одном списке</text>
+<rect x="44" y="138" width="1192" height="410" rx="14" fill="#1b2432"/>
+<g font-family="DejaVu Sans Mono, monospace" font-size="21" xml:space="preserve"><text x="70" y="190" fill="#85dfbd">$ chronicle sessions</text>
+<text x="70" y="223" fill="#e0e5ee"></text>
+<text x="70" y="256" fill="#e0e5ee">■ demo-shop</text>
+<text x="70" y="289" fill="#e0e5ee">  [ждёт тебя] Запись клиентов  (e5f6a7b8, 20 мин назад)</text>
+<text x="70" y="322" fill="#e0e5ee">      запрос: Добавь напоминание о записи</text>
+<text x="70" y="355" fill="#e0e5ee">  [идёт] Лендинг магазина  (a1b2c3d4, 3 мин назад)</text>
+<text x="70" y="388" fill="#e0e5ee">      запрос: Собери страницу каталога товаров</text></g>
+<text x="58" y="595" font-family="sans-serif" font-size="19" fill="#a3afbf">Реальный вывод CLI · вымышленные сессии · без вызова модели</text>
+</svg>
