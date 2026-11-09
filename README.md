@@ -2,9 +2,9 @@
 
 **Летописец для Claude Code: видит все сессии на машине и собирает отчёт о проделанной работе — в формате OKR или любом другом.**
 
-> **EN.** Claude Code sessions run in parallel across many folders, and nobody remembers what each of them did.
-> `claude-chronicle` reads Claude Code's own transcripts, archives extracted fragments and gives you
-> two slash commands: `/work` — what is going on right now across all
+> **EN — Claude Code session tracking and work reports.** A Python CLI for tracking parallel sessions,
+> flagging overlapping file edits, and keeping a local transcript archive of extracted fragments.
+> Two slash commands: `/work` — what is going on right now across all
 > sessions, what waits for you, which sessions collide; `/report` — a work report for any period (OKR by default).
 > Python standard library only. Session listing works without a model; summaries use your authenticated
 > `claude` CLI and its usage limits. Set `CHRONICLE_LANGUAGE=English` for English summaries;
