@@ -118,6 +118,32 @@ class InstallTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual((self.skill("work") / "SKILL.md").read_text(), "User's changes\n")
 
+    def test_foreign_command_stops_install_before_any_changes(self):
+        self.command.parent.mkdir(parents=True)
+        original = "#!/bin/sh\necho another tool\n"
+        self.command.write_text(original)
+        self.command.chmod(0o751)
+        self.create_foreign_skill("work")
+        result = self.run_install(check=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.command.read_text(), original)
+        self.assertEqual(self.command.stat().st_mode & 0o777, 0o751)
+        self.assertFalse(self.data.exists())
+        self.assertIn("belongs to another tool", (self.skill("work") / "SKILL.md").read_text())
+        self.assertFalse(self.skill("report").exists())
+        self.run_install("--uninstall")
+        self.assertEqual(self.command.read_text(), original)
+
+    def test_broken_command_symlink_stops_install_before_any_changes(self):
+        self.command.parent.mkdir(parents=True)
+        target = self.base / "missing-other-command"
+        self.command.symlink_to(target)
+        result = self.run_install(check=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertTrue(self.command.is_symlink())
+        self.assertFalse(target.exists())
+        self.assertFalse(self.data.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

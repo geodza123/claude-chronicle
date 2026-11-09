@@ -28,6 +28,11 @@ owned_skill() {
     [ "$(cat "$SKILLS/$1/.claude-chronicle-owned")" = "claude-chronicle" ]
 }
 
+owned_command() {
+  [ -f "$BIN" ] && [ ! -L "$BIN" ] &&
+    grep -qx '# Installed by claude-chronicle' "$BIN"
+}
+
 if [ "${1:-}" = "--uninstall" ]; then
   if [ "$ISOLATED" = 0 ] && command -v systemctl >/dev/null && [ -f "$UNIT/claude-chronicle.timer" ]; then
     systemctl --user disable --now claude-chronicle.timer || true
@@ -56,9 +61,14 @@ if [ "${1:-}" = "--uninstall" ]; then
     fi
   done
   rm -rf "$APP"
-  if [ -f "$BIN" ] && grep -qx '# Installed by claude-chronicle' "$BIN"; then rm -f "$BIN"; fi
+  if owned_command; then rm -f "$BIN"; fi
   echo "Удалено. История осталась в ${APP%/app} — удали папку сам, если она не нужна."
   exit 0
+fi
+
+if { [ -e "$BIN" ] || [ -L "$BIN" ]; } && ! owned_command; then
+  echo "Остановлено: $BIN уже занят другой командой. Сохрани её отдельно перед установкой."
+  exit 1
 fi
 
 command -v claude >/dev/null || echo "⚠ Не нашёл команду claude. Пересказы и отчёты работают через Claude Code — поставь его."
